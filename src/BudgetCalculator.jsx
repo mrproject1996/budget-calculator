@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Card, CardContent } from './components/ui/card';
+import { Input } from './components/ui/input';
+import { Button } from './components/ui/button';
 import { Euro, Briefcase, Computer } from 'lucide-react';
 
 const BudgetCalculator = () => {
@@ -55,7 +58,7 @@ const BudgetCalculator = () => {
   const results = calculations();
 
   return (
-    <div className="space-y-6 w-full max-w-4xl bg-gradient-to-br from-slate-50 to-gray-100 p-6 rounded-xl mx-auto my-8">
+    <div className="space-y-6 w-full max-w-4xl bg-gradient-to-br from-slate-50 to-gray-100 p-6 rounded-xl mx-auto">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
           Camille's Budget
@@ -63,52 +66,56 @@ const BudgetCalculator = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl shadow-lg p-6">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <Briefcase className="h-6 w-6 text-blue-600" />
-              <h3 className="text-lg font-semibold text-blue-800">Worldline Salary (Net)</h3>
+        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 shadow-lg">
+          <CardContent className="pt-6">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-4">
+                <Briefcase className="h-6 w-6 text-blue-600" />
+                <h3 className="text-lg font-semibold text-blue-800">Worldline Salary (Net)</h3>
+              </div>
+              <div className="relative">
+                <Euro className="absolute left-3 top-3 h-5 w-5 text-blue-500" />
+                <Input
+                  type="number"
+                  className="pl-10 h-12 text-lg font-medium bg-white border-blue-200 focus:border-blue-400 focus:ring-blue-400"
+                  value={worldlineSalary}
+                  onChange={(e) => setWorldlineSalary(e.target.value)}
+                  placeholder="Enter amount"
+                />
+              </div>
             </div>
-            <div className="relative">
-              <Euro className="absolute left-3 top-3 h-5 w-5 text-blue-500" />
-              <input
-                type="number"
-                className="w-full pl-10 h-12 text-lg font-medium bg-white border border-blue-200 rounded-lg focus:border-blue-400 focus:ring-2 focus:ring-blue-400 outline-none"
-                value={worldlineSalary}
-                onChange={(e) => setWorldlineSalary(e.target.value)}
-                placeholder="Enter amount"
-              />
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
-        <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-xl shadow-lg p-6">
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 mb-4">
-              <Computer className="h-6 w-6 text-purple-600" />
-              <h3 className="text-lg font-semibold text-purple-800">Freelance Salary (Gross)</h3>
+        <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 shadow-lg">
+          <CardContent className="pt-6">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-4">
+                <Computer className="h-6 w-6 text-purple-600" />
+                <h3 className="text-lg font-semibold text-purple-800">Freelance Salary (Gross)</h3>
+              </div>
+              <div className="relative">
+                <Euro className="absolute left-3 top-3 h-5 w-5 text-purple-500" />
+                <Input
+                  type="number"
+                  className="pl-10 h-12 text-lg font-medium bg-white border-purple-200 focus:border-purple-400 focus:ring-purple-400"
+                  value={freelanceSalary}
+                  onChange={(e) => setFreelanceSalary(e.target.value)}
+                  placeholder="Enter amount"
+                />
+              </div>
             </div>
-            <div className="relative">
-              <Euro className="absolute left-3 top-3 h-5 w-5 text-purple-500" />
-              <input
-                type="number"
-                className="w-full pl-10 h-12 text-lg font-medium bg-white border border-purple-200 rounded-lg focus:border-purple-400 focus:ring-2 focus:ring-purple-400 outline-none"
-                value={freelanceSalary}
-                onChange={(e) => setFreelanceSalary(e.target.value)}
-                placeholder="Enter amount"
-              />
-            </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="flex justify-center">
-        <button 
+        <Button 
           onClick={handleGenerate}
           className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg font-semibold rounded-xl shadow-lg transition-all duration-200 transform hover:scale-105"
         >
           Generate Allocations
-        </button>
+        </Button>
       </div>
 
       {results.showCelebration && showResults && (
@@ -119,11 +126,11 @@ const BudgetCalculator = () => {
 
       {showResults && (
         <div className="grid grid-cols-1 gap-6">
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <Card className="shadow-lg bg-white">
             <div className="p-6 border-b border-gray-200">
               <h3 className="text-xl font-semibold text-gray-800">Fixed Costs</h3>
             </div>
-            <div className="p-6">
+            <CardContent>
               <div className="space-y-3">
                 {FIXED_COSTS.map((cost) => (
                   <div key={cost.name} className={`flex justify-between p-3 rounded-lg ${cost.color}`}>
@@ -138,14 +145,14 @@ const BudgetCalculator = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
 
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <Card className="shadow-lg bg-white">
             <div className="p-6 border-b border-gray-200">
               <h3 className="text-xl font-semibold text-gray-800">Monthly Allocations</h3>
             </div>
-            <div className="p-6">
+            <CardContent>
               <div className="space-y-4">
                 <div className="p-4 bg-gradient-to-r from-emerald-100 to-emerald-50 rounded-lg">
                   <div className="flex justify-between font-bold text-emerald-800">
@@ -175,8 +182,8 @@ const BudgetCalculator = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </div>
       )}
     </div>
