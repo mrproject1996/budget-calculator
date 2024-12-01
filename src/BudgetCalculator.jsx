@@ -11,7 +11,7 @@ const BudgetCalculator = () => {
 
   const FIXED_COSTS = [
     { name: 'Mix', amount: 180, color: 'bg-emerald-100' },
-    { name: 'Orange + Apple', amount: 80, color: 'bg-sky-100' },
+    { name: 'Apple', amount: 10, color: 'bg-sky-100' },
     { name: 'Ongles', amount: 50, color: 'bg-pink-100' },
     { name: 'CC', amount: 60, color: 'bg-purple-100' },
     { name: 'Epargne', amount: 113, color: 'bg-amber-100' },
